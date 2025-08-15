@@ -327,7 +327,9 @@ const emitInput = (input: SingleOrRange<DateModelType> | null) => {
     } else if (input) {
       formatted = formatter(input, props.valueFormat, lang.value)
     }
-    emit(UPDATE_MODEL_EVENT, input ? formatted : input, lang.value)
+    if (!formatted || !valueEquals(props.modelValue, formatted)) {
+      emit(UPDATE_MODEL_EVENT, input ? formatted : input, lang.value)
+    }
   }
 }
 const emitKeydown = (e: KeyboardEvent) => {
